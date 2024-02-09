@@ -9,6 +9,6 @@
 - Make Gun
 - Make Sword
 
-| Syntax | Description |
+| Things to do |
 | ----------- | ----------- |
-| Header | Title |
+| Todo: | Mayble Todo: |
