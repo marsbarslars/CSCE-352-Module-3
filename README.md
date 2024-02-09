@@ -2,20 +2,15 @@
 # Todo:
 - Create Scene
 - Make shootable objects
-  - Starwars Training dorid
+  - Starwars Training Droid
   - Big target that tracks shots
 - Make things to cut
   - Bamboo
 - Make Gun
 - Make Sword
 
-| Todo: | Mayble Todo: |
-| ----------- | ----------- |
-| - Create Scene | ----------- |
-| - Make shootable objects | ----------- |
-|   - Starwars Training Dorid | ----------- |
-|   - Big target that tracks shots | ----------- |
-| - Make things to cut | ----------- |
-|   - Bamboo | ----------- |
-| - Make Gun | ----------- |
-| - Make Sword | ----------- |
+# Do if time:
+- Make multiple rooms
+- Make AI enemies
+- Make shield
+- Make more weapons
