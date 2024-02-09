@@ -9,6 +9,6 @@
 - Make Gun
 - Make Sword
 
-| Things to do |
+| Things to do | ----------- |
 | ----------- | ----------- |
 | Todo: | Mayble Todo: |
