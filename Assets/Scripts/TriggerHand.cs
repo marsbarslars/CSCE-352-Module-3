@@ -12,34 +12,34 @@ using System.Collections.Generic;
 namespace Valve.VR.InteractionSystem
 {
 	//-------------------------------------------------------------------------
-	public class ArrowHand : MonoBehaviour
+	public class TriggerHand : MonoBehaviour
 	{
 		private Hand hand;
-		private Longbow bow;
+		private Rifle rifle;
 
-		private GameObject currentArrow;
-		public GameObject arrowPrefab;
+		private GameObject currentRound;
+		public GameObject roundPrefab;
 
-		public Transform arrowNockTransform;
+		public Transform roundNockTransform;
 
 		public float nockDistance = 0.1f;
 		public float lerpCompleteDistance = 0.08f;
 		public float rotationLerpThreshold = 0.15f;
 		public float positionLerpThreshold = 0.15f;
 
-		private bool allowArrowSpawn = true;
+		private bool allowRoundSpawn = true;
 		private bool nocked;
         private GrabTypes nockedWithType = GrabTypes.None;
 
 		private bool inNockRange = false;
-		private bool arrowLerpComplete = false;
+		private bool roundLerpComplete = false;
 
-		public SoundPlayOneshot arrowSpawnSound;
+		public SoundPlayOneshot roundSpawnSound;
 
 		private AllowTeleportWhileAttachedToHand allowTeleport = null;
 
-		public int maxArrowCount = 10;
-		private List<GameObject> arrowList;
+		public int maxRoundCount = 10;
+		private List<GameObject> roundList;
 
 
 		//-------------------------------------------------
@@ -49,7 +49,7 @@ namespace Valve.VR.InteractionSystem
 			//allowTeleport.teleportAllowed = true;
 			allowTeleport.overrideHoverLock = false;
 
-			arrowList = new List<GameObject>();
+			roundList = new List<GameObject>();
 		}
 
 
@@ -57,54 +57,54 @@ namespace Valve.VR.InteractionSystem
 		private void OnAttachedToHand( Hand attachedHand )
 		{
 			hand = attachedHand;
-			FindBow();
+			FindRifle();
 		}
 
 
 		//-------------------------------------------------
-		private GameObject InstantiateArrow()
+		private GameObject InstantiateRound()
 		{
-			GameObject arrow = Instantiate( arrowPrefab, arrowNockTransform.position, arrowNockTransform.rotation ) as GameObject;
-			arrow.name = "Bow Arrow";
-			arrow.transform.parent = arrowNockTransform;
-			Util.ResetTransform( arrow.transform );
+			GameObject round = Instantiate( roundPrefab, roundNockTransform.position, roundNockTransform.rotation ) as GameObject;
+			round.name = "Rifle Round";
+			round.transform.parent = roundNockTransform;
+			Util.ResetTransform( round.transform );
 
-			arrowList.Add( arrow );
+			roundList.Add( round );
 
-			while ( arrowList.Count > maxArrowCount )
+			while ( roundList.Count > maxRoundCount )
 			{
-				GameObject oldArrow = arrowList[0];
-				arrowList.RemoveAt( 0 );
-				if ( oldArrow )
+				GameObject oldRound = roundList[0];
+				roundList.RemoveAt( 0 );
+				if ( oldRound )
 				{
-					Destroy( oldArrow );
+					Destroy( oldRound );
 				}
 			}
 
-			return arrow;
+			return round;
 		}
 
 
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
 		{
-			if ( bow == null )
+			if ( rifle == null )
 			{
-				FindBow();
+				FindRifle();
 			}
 
-			if ( bow == null )
+			if ( rifle == null )
 			{
 				return;
 			}
 
-			if ( allowArrowSpawn && ( currentArrow == null ) ) // If we're allowed to have an active arrow in hand but don't yet, spawn one
+			if ( allowRoundSpawn && ( currentRound == null ) ) // If we're allowed to have an active arrow in hand but don't yet, spawn one
 			{
-				currentArrow = InstantiateArrow();
-				arrowSpawnSound.Play();
+				currentRound = InstantiateRound();
+				roundSpawnSound.Play();
 			}
 
-			float distanceToNockPosition = Vector3.Distance( transform.parent.position, bow.nockTransform.position );
+			float distanceToNockPosition = Vector3.Distance( transform.parent.position, rifle.nockTransform.position );
 
 			// If there's an arrow spawned in the hand and it's not nocked yet
 			if ( !nocked )
@@ -114,11 +114,11 @@ namespace Valve.VR.InteractionSystem
 				{
 					float lerp = Util.RemapNumber( distanceToNockPosition, rotationLerpThreshold, lerpCompleteDistance, 0, 1 );
 
-					arrowNockTransform.rotation = Quaternion.Lerp( arrowNockTransform.parent.rotation, bow.nockRestTransform.rotation, lerp );
+					roundNockTransform.rotation = Quaternion.Lerp( roundNockTransform.parent.rotation, rifle.nockRestTransform.rotation, lerp );
 				}
 				else // Not close enough for rotation lerp, reset rotation
 				{
-					arrowNockTransform.localRotation = Quaternion.identity;
+					roundNockTransform.localRotation = Quaternion.identity;
 				}
 
 				// If we're close enough to the nock position that we want to start arrow position lerp, do so
@@ -128,28 +128,28 @@ namespace Valve.VR.InteractionSystem
 
 					posLerp = Mathf.Clamp( posLerp, 0f, 1f );
 
-					arrowNockTransform.position = Vector3.Lerp( arrowNockTransform.parent.position, bow.nockRestTransform.position, posLerp );
+					roundNockTransform.position = Vector3.Lerp( roundNockTransform.parent.position, rifle.nockRestTransform.position, posLerp );
 				}
 				else // Not close enough for position lerp, reset position
 				{
-					arrowNockTransform.position = arrowNockTransform.parent.position;
+					roundNockTransform.position = roundNockTransform.parent.position;
 				}
 
 
 				// Give a haptic tick when lerp is visually complete
 				if ( distanceToNockPosition < lerpCompleteDistance )
 				{
-					if ( !arrowLerpComplete )
+					if ( !roundLerpComplete )
 					{
-						arrowLerpComplete = true;
+						roundLerpComplete = true;
 						hand.TriggerHapticPulse( 500 );
 					}
 				}
 				else
 				{
-					if ( arrowLerpComplete )
+					if ( roundLerpComplete )
 					{
-						arrowLerpComplete = false;
+						roundLerpComplete = false;
 					}
 				}
 
@@ -159,7 +159,7 @@ namespace Valve.VR.InteractionSystem
 					if ( !inNockRange )
 					{
 						inNockRange = true;
-						bow.ArrowInPosition();
+						rifle.ArrowInPosition();
 					}
 				}
 				else
@@ -172,22 +172,22 @@ namespace Valve.VR.InteractionSystem
 
                 GrabTypes bestGrab = hand.GetBestGrabbingType(GrabTypes.Pinch, true);
 
-                // If arrow is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
+                // If round is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
                 if ( ( distanceToNockPosition < nockDistance ) && bestGrab != GrabTypes.None && !nocked )
 				{
-					if ( currentArrow == null )
+					if ( currentRound == null )
 					{
-						currentArrow = InstantiateArrow();
+						currentRound = InstantiateRound();
 					}
 
 					nocked = true;
                     nockedWithType = bestGrab;
-					bow.StartNock( this );
+					rifle.StartNock( this );
 					hand.HoverLock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = false;
-					currentArrow.transform.parent = bow.nockTransform;
-					Util.ResetTransform( currentArrow.transform );
-					Util.ResetTransform( arrowNockTransform );
+					currentRound.transform.parent = rifle.nockTransform;
+					Util.ResetTransform( currentRound.transform );
+					Util.ResetTransform( roundNockTransform );
 				}
 			}
 
@@ -195,23 +195,23 @@ namespace Valve.VR.InteractionSystem
 			// If arrow is nocked, and we release the trigger
 			if ( nocked && hand.IsGrabbingWithType(nockedWithType) == false )
 			{
-				if ( bow.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
+				if ( rifle.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
 				{
-					FireArrow();
+					FireRound();
 				}
 				else
 				{
-					arrowNockTransform.rotation = currentArrow.transform.rotation;
-					currentArrow.transform.parent = arrowNockTransform;
-					Util.ResetTransform( currentArrow.transform );
+					roundNockTransform.rotation = currentRound.transform.rotation;
+					currentRound.transform.parent = roundNockTransform;
+					Util.ResetTransform( currentRound.transform );
 					nocked = false;
                     nockedWithType = GrabTypes.None;
-					bow.ReleaseNock();
+					rifle.ReleaseNock();
 					hand.HoverUnlock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = true;
 				}
 
-				bow.StartRotationLerp(); // Arrow is releasing from the bow, tell the bow to lerp back to controller rotation
+				rifle.StartRotationLerp(); // Arrow is releasing from the bow, tell the bow to lerp back to controller rotation
 			}
 		}
 
@@ -224,37 +224,37 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void FireArrow()
+		private void FireRound()
 		{
-			currentArrow.transform.parent = null;
+			currentRound.transform.parent = null;
 
-			Round arrow = currentArrow.GetComponent<Round>();
-            arrow.StartRelease();
-            arrow.shaftRB.isKinematic = false;
-			arrow.shaftRB.useGravity = true;
-			arrow.shaftRB.transform.GetComponent<BoxCollider>().enabled = true;
+			Round round = currentRound.GetComponent<Round>();
+            round.StartRelease();
+            round.shaftRB.isKinematic = false;
+			round.shaftRB.useGravity = true;
+			round.shaftRB.transform.GetComponent<BoxCollider>().enabled = true;
 
-			arrow.arrowHeadRB.isKinematic = false;
-			arrow.arrowHeadRB.useGravity = true;
-			arrow.arrowHeadRB.transform.GetComponent<BoxCollider>().enabled = true;
+			round.roundHeadRB.isKinematic = false;
+			round.roundHeadRB.useGravity = true;
+			round.roundHeadRB.transform.GetComponent<BoxCollider>().enabled = true;
 
-			arrow.arrowHeadRB.AddForce( currentArrow.transform.forward * bow.GetArrowVelocity(), ForceMode.VelocityChange );
-			arrow.arrowHeadRB.AddTorque( currentArrow.transform.forward * 10 );
+			round.roundHeadRB.AddForce( currentRound.transform.forward * rifle.GetRoundVelocity(), ForceMode.VelocityChange );
+			round.roundHeadRB.AddTorque( currentRound.transform.forward * 10 );
 
-			arrow.shaftRB.velocity = arrow.arrowHeadRB.velocity;
-			arrow.shaftRB.angularVelocity = arrow.arrowHeadRB.angularVelocity;
+			round.shaftRB.velocity = round.roundHeadRB.velocity;
+			round.shaftRB.angularVelocity = round.roundHeadRB.angularVelocity;
 
 			nocked = false;
             nockedWithType = GrabTypes.None;
 
-			currentArrow.GetComponent<Round>().ArrowReleased( bow.GetArrowVelocity() );
-			bow.ArrowReleased();
+			currentRound.GetComponent<Round>().ArrowReleased( rifle.GetRoundVelocity() );
+			rifle.RoundReleased();
 
-			allowArrowSpawn = false;
-			Invoke( "EnableArrowSpawn", 0.5f );
+			allowRoundSpawn = false;
+			Invoke( "EnableRoundSpawn", 0.5f );
 			StartCoroutine( ArrowReleaseHaptics() );
 
-			currentArrow = null;
+			currentRound = null;
 			allowTeleport.teleportAllowed = true;
 		}
 
@@ -262,7 +262,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void EnableArrowSpawn()
 		{
-			allowArrowSpawn = true;
+			allowRoundSpawn = true;
 		}
 
 
@@ -299,9 +299,9 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void FindBow()
+		private void FindRifle()
 		{
-			bow = hand.otherHand.GetComponentInChildren<Longbow>();
+			rifle = hand.otherHand.GetComponentInChildren<Rifle>();
 		}
 	}
 }

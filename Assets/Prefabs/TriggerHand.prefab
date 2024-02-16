@@ -249,7 +249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85480da87762944399dab6c99985eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 3}
+  arrowPrefab: {fileID: 1556352359394094858, guid: bc2ff1a681a2b994e8396890eec95a20,
+    type: 3}
   arrowNockTransform: {fileID: 413922}
   nockDistance: 0.1
   lerpCompleteDistance: 0.08
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57468e6cbae21894fa42c90413c294ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPackage: {fileID: 11450054, guid: 98a3ad29136d5c04f8a025adf1cbd704, type: 3}
+  itemPackage: {fileID: 11450054, guid: 0d0d3d8ca2462934bac01f0bc70175f5, type: 3}
 --- !u!114 &11443248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d4cc6cf300b3e4bb1411c4e041030c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportAllowed: 0
+  teleportAllowed: 1
   overrideHoverLock: 1
 --- !u!114 &114000011899610526
 MonoBehaviour:
@@ -376,12 +377,14 @@ MonoBehaviour:
   blendEditorExpanded: 0
   poseNames:
   - longbowArrowPose (MAIN)
+  - '[not set]'
   overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
     type: 3}
   overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
     type: 3}
   skeletonMainPose: {fileID: 11400000, guid: 12d7f50e857b2f44a87430b50a8a0c25, type: 2}
-  skeletonAdditionalPoses: []
+  skeletonAdditionalPoses:
+  - {fileID: 0}
   showLeftPreview: 0
   showRightPreview: 1
   previewLeftInstance: {fileID: 0}

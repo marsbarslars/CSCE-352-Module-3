@@ -456,7 +456,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7682213458616953240}
   - component: {fileID: 3111097076673556334}
-  - component: {fileID: -3287752265569706867}
   - component: {fileID: 4186547198821361389}
   - component: {fileID: 4412404551548900661}
   - component: {fileID: -1125253275465753647}
@@ -464,6 +463,7 @@ GameObject:
   - component: {fileID: -8647923336175895347}
   - component: {fileID: 8439228017304275740}
   - component: {fileID: 7335231132520065376}
+  - component: {fileID: 2729116765953778508}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -540,37 +540,6 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
---- !u!114 &-3287752265569706867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050214641404146466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30032368544f1a341976db391b260507, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHandGuess: 0
-  pivotTransform: {fileID: 472392, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  handleTransform: {fileID: 480240, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  nockTransform: {fileID: 471206, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  nockRestTransform: {fileID: 449820, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  autoSpawnArrowHand: 1
-  arrowHandItemPackage: {fileID: 0}
-  arrowHandPrefab: {fileID: 187848, guid: d410d7126dd411c4ea651fc94eae9202, type: 3}
-  nocked: 0
-  pulled: 0
-  arrowMinVelocity: 3
-  arrowMaxVelocity: 30
-  drawOffset: 0.09
-  bowDrawLinearMapping: {fileID: 11461100, guid: b8c19e1576a53cf4cb1316a5123561a1,
-    type: 3}
-  drawSound: {fileID: 11471204, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  arrowSlideSound: {fileID: 11466562, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  releaseSound: {fileID: 11462188, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
-  nockSound: {fileID: 11498608, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
 --- !u!114 &4186547198821361389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,19 +641,51 @@ MonoBehaviour:
   blendEditorExpanded: 0
   poseNames:
   - longbowPose (MAIN)
+  - RifleHand
   overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
     type: 3}
   overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
     type: 3}
   skeletonMainPose: {fileID: 11400000, guid: b11bd330216ce2944a1928a54925d7de, type: 2}
-  skeletonAdditionalPoses: []
+  skeletonAdditionalPoses:
+  - {fileID: 11400000, guid: fb083d40f8d3bbc4c9e87e01c2a1e23e, type: 2}
   showLeftPreview: 0
   showRightPreview: 0
   previewLeftInstance: {fileID: 0}
   previewRightInstance: {fileID: 0}
-  previewPoseSelection: 0
+  previewPoseSelection: 1
   blendingBehaviours: []
   scale: 1
+--- !u!114 &2729116765953778508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050214641404146466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47caee96d8fca641abf7720bad1d596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHandGuess: 0
+  pivotTransform: {fileID: 0}
+  handleTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
+  nockRestTransform: {fileID: 0}
+  autoSpawnArrowHand: 1
+  arrowHandItemPackage: {fileID: 0}
+  arrowHandPrefab: {fileID: 0}
+  nocked: 0
+  pulled: 0
+  arrowMinVelocity: 3
+  arrowMaxVelocity: 30
+  drawOffset: 0.06
+  bowDrawLinearMapping: {fileID: 0}
+  drawSound: {fileID: 0}
+  arrowSlideSound: {fileID: 0}
+  releaseSound: {fileID: 0}
+  nockSound: {fileID: 0}
 --- !u!1 &7916988861139322342
 GameObject:
   m_ObjectHideFlags: 0
