@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3446687312918391475}
   - component: {fileID: 6992566534171263228}
   - component: {fileID: 8573915569693035414}
-  - component: {fileID: 878203791316772651}
+  - component: {fileID: 3882015649097706549}
   m_Layer: 0
   m_Name: Targets Spawn
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &878203791316772651
+--- !u!114 &3882015649097706549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,10 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stationaryTarget: {fileID: 7922508154668184693, guid: 6bf47ab311e59f242a84730bc917287d,
     type: 3}
-  movingTarget: {fileID: 1913637387638105988, guid: 12bc32641220e9f4699d74ba347673f5,
-    type: 3}
-  chooseTarget: 0
   xPos: 0
   yPos: 0
   zPos: 0
-  timer: {fileID: 4041242723529342773, guid: 17d004a1f7a844d4a850f33f9344e1a0, type: 3}
+  timer: {fileID: 3654720278344635879, guid: 17d004a1f7a844d4a850f33f9344e1a0, type: 3}
+  timerGameObject: {fileID: 250336127800656843, guid: 17d004a1f7a844d4a850f33f9344e1a0,
+    type: 3}

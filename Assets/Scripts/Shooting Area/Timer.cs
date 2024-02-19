@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 
-    public float timeRemaining = 1;
+    public float timeRemaining = 3;
     public bool timeIsRunning = true;
     public TMP_Text timeText;
 
