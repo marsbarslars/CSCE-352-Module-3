@@ -159,7 +159,7 @@ namespace Valve.VR.InteractionSystem
 					if ( !inNockRange )
 					{
 						inNockRange = true;
-						rifle.ArrowInPosition();
+						rifle.TriggerHandInPosition();
 					}
 				}
 				else

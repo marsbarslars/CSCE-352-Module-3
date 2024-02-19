@@ -246,11 +246,6 @@ namespace Valve.VR.InteractionSystem
 			triggerHand = currentTriggerHand;
 			hand.HoverLock( GetComponent<Interactable>() );
 			nocked = true;
-			nockLerpStartTime = Time.time;
-			nockLerpStartRotation = pivotTransform.rotation;
-
-			// Sound of arrow sliding on nock as it's being pulled back
-			arrowSlideSound.Play();
 
 			// Decide which hand we're drawing with and lerp to the correct side
 			DoHandednessCheck();
@@ -325,7 +320,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		public void ArrowInPosition()
+		public void TriggerHandInPosition()
 		{
 			DoHandednessCheck();
 
