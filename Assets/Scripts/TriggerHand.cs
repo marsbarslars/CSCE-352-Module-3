@@ -17,29 +17,29 @@ namespace Valve.VR.InteractionSystem
 		private Hand hand;
 		private Rifle rifle;
 
-		private GameObject currentRound;
-		public GameObject roundPrefab;
+		private GameObject currentBullet;
+		public GameObject bulletPrefab;
 
-		public Transform roundNockTransform;
+		public Transform bulletNockTransform;
 
 		public float nockDistance = 0.1f;
 		public float lerpCompleteDistance = 0.08f;
 		public float rotationLerpThreshold = 0.15f;
 		public float positionLerpThreshold = 0.15f;
 
-		private bool allowRoundSpawn = true;
+		private bool allowBulletSpawn = true;
 		private bool nocked;
         private GrabTypes nockedWithType = GrabTypes.None;
 
 		private bool inNockRange = false;
-		private bool roundLerpComplete = false;
+		private bool bulletLerpComplete = false;
 
-		public SoundPlayOneshot roundSpawnSound;
+		public SoundPlayOneshot bulletSpawnSound;
 
 		private AllowTeleportWhileAttachedToHand allowTeleport = null;
 
-		public int maxRoundCount = 10;
-		private List<GameObject> roundList;
+		public int maxBulletCount = 10;
+		private List<GameObject> bulletList;
 
 
 		//-------------------------------------------------
@@ -49,7 +49,7 @@ namespace Valve.VR.InteractionSystem
 			//allowTeleport.teleportAllowed = true;
 			allowTeleport.overrideHoverLock = false;
 
-			roundList = new List<GameObject>();
+			bulletList = new List<GameObject>();
 		}
 
 
@@ -62,26 +62,26 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private GameObject InstantiateRound()
+		private GameObject InstantiateBullet()
 		{
-			GameObject round = Instantiate( roundPrefab, roundNockTransform.position, roundNockTransform.rotation ) as GameObject;
-			round.name = "Rifle Round";
-			round.transform.parent = roundNockTransform;
-			Util.ResetTransform( round.transform );
+			GameObject bullet = Instantiate( bulletPrefab, bulletNockTransform.position, bulletNockTransform.rotation ) as GameObject;
+			bullet.name = "Rifle Bullet";
+			bullet.transform.parent = bulletNockTransform;
+			Util.ResetTransform( bullet.transform );
 
-			roundList.Add( round );
+			bulletList.Add( bullet );
 
-			while ( roundList.Count > maxRoundCount )
+			while ( bulletList.Count > maxBulletCount )
 			{
-				GameObject oldRound = roundList[0];
-				roundList.RemoveAt( 0 );
-				if ( oldRound )
+				GameObject oldBullet = bulletList[0];
+				bulletList.RemoveAt( 0 );
+				if ( oldBullet )
 				{
-					Destroy( oldRound );
+					Destroy( oldBullet );
 				}
 			}
 
-			return round;
+			return bullet;
 		}
 
 
@@ -98,10 +98,10 @@ namespace Valve.VR.InteractionSystem
 				return;
 			}
 
-			if ( allowRoundSpawn && ( currentRound == null ) ) // If we're allowed to have an active arrow in hand but don't yet, spawn one
+			if ( allowBulletSpawn && ( currentBullet == null ) ) // If we're allowed to have an active arrow in hand but don't yet, spawn one
 			{
-				currentRound = InstantiateRound();
-				roundSpawnSound.Play();
+				currentBullet = InstantiateBullet();
+				bulletSpawnSound.Play();
 			}
 
 			float distanceToNockPosition = Vector3.Distance( transform.parent.position, rifle.nockTransform.position );
@@ -114,11 +114,11 @@ namespace Valve.VR.InteractionSystem
 				{
 					float lerp = Util.RemapNumber( distanceToNockPosition, rotationLerpThreshold, lerpCompleteDistance, 0, 1 );
 
-					roundNockTransform.rotation = Quaternion.Lerp( roundNockTransform.parent.rotation, rifle.nockRestTransform.rotation, lerp );
+					bulletNockTransform.rotation = Quaternion.Lerp( bulletNockTransform.parent.rotation, rifle.nockRestTransform.rotation, lerp );
 				}
 				else // Not close enough for rotation lerp, reset rotation
 				{
-					roundNockTransform.localRotation = Quaternion.identity;
+					bulletNockTransform.localRotation = Quaternion.identity;
 				}
 
 				// If we're close enough to the nock position that we want to start arrow position lerp, do so
@@ -128,28 +128,28 @@ namespace Valve.VR.InteractionSystem
 
 					posLerp = Mathf.Clamp( posLerp, 0f, 1f );
 
-					roundNockTransform.position = Vector3.Lerp( roundNockTransform.parent.position, rifle.nockRestTransform.position, posLerp );
+					bulletNockTransform.position = Vector3.Lerp( bulletNockTransform.parent.position, rifle.nockRestTransform.position, posLerp );
 				}
 				else // Not close enough for position lerp, reset position
 				{
-					roundNockTransform.position = roundNockTransform.parent.position;
+					bulletNockTransform.position = bulletNockTransform.parent.position;
 				}
 
 
 				// Give a haptic tick when lerp is visually complete
 				if ( distanceToNockPosition < lerpCompleteDistance )
 				{
-					if ( !roundLerpComplete )
+					if ( !bulletLerpComplete )
 					{
-						roundLerpComplete = true;
+						bulletLerpComplete = true;
 						hand.TriggerHapticPulse( 500 );
 					}
 				}
 				else
 				{
-					if ( roundLerpComplete )
+					if ( bulletLerpComplete )
 					{
-						roundLerpComplete = false;
+						bulletLerpComplete = false;
 					}
 				}
 
@@ -172,12 +172,12 @@ namespace Valve.VR.InteractionSystem
 
                 GrabTypes bestGrab = hand.GetBestGrabbingType(GrabTypes.Pinch, true);
 
-                // If round is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
+                // If bullet is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
                 if ( ( distanceToNockPosition < nockDistance ) && bestGrab != GrabTypes.None && !nocked )
 				{
-					if ( currentRound == null )
+					if ( currentBullet == null )
 					{
-						currentRound = InstantiateRound();
+						currentBullet = InstantiateBullet();
 					}
 
 					nocked = true;
@@ -185,9 +185,9 @@ namespace Valve.VR.InteractionSystem
 					rifle.StartNock( this );
 					hand.HoverLock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = false;
-					currentRound.transform.parent = rifle.nockTransform;
-					Util.ResetTransform( currentRound.transform );
-					Util.ResetTransform( roundNockTransform );
+					currentBullet.transform.parent = rifle.nockTransform;
+					Util.ResetTransform( currentBullet.transform );
+					Util.ResetTransform( bulletNockTransform );
 				}
 			}
 
@@ -197,13 +197,13 @@ namespace Valve.VR.InteractionSystem
 			{
 				if ( rifle.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
 				{
-					FireRound();
+					FireBullet();
 				}
 				else
 				{
-					roundNockTransform.rotation = currentRound.transform.rotation;
-					currentRound.transform.parent = roundNockTransform;
-					Util.ResetTransform( currentRound.transform );
+					bulletNockTransform.rotation = currentBullet.transform.rotation;
+					currentBullet.transform.parent = bulletNockTransform;
+					Util.ResetTransform( currentBullet.transform );
 					nocked = false;
                     nockedWithType = GrabTypes.None;
 					rifle.ReleaseNock();
@@ -224,37 +224,37 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void FireRound()
+		private void FireBullet()
 		{
-			currentRound.transform.parent = null;
+			currentBullet.transform.parent = null;
 
-			Round round = currentRound.GetComponent<Round>();
-            round.StartRelease();
-            round.shaftRB.isKinematic = false;
-			round.shaftRB.useGravity = true;
-			round.shaftRB.transform.GetComponent<BoxCollider>().enabled = true;
+			Bullet bullet = currentBullet.GetComponent<Bullet>();
+            bullet.StartRelease();
+            bullet.shaftRB.isKinematic = false;
+			bullet.shaftRB.useGravity = true;
+			bullet.shaftRB.transform.GetComponent<BoxCollider>().enabled = true;
 
-			round.roundHeadRB.isKinematic = false;
-			round.roundHeadRB.useGravity = true;
-			round.roundHeadRB.transform.GetComponent<BoxCollider>().enabled = true;
+			bullet.bulletHeadRB.isKinematic = false;
+			bullet.bulletHeadRB.useGravity = true;
+			bullet.bulletHeadRB.transform.GetComponent<BoxCollider>().enabled = true;
 
-			round.roundHeadRB.AddForce( currentRound.transform.forward * rifle.GetRoundVelocity(), ForceMode.VelocityChange );
-			round.roundHeadRB.AddTorque( currentRound.transform.forward * 10 );
+			bullet.bulletHeadRB.AddForce( currentBullet.transform.forward * rifle.GetBulletVelocity(), ForceMode.VelocityChange );
+			bullet.bulletHeadRB.AddTorque( currentBullet.transform.forward * 10 );
 
-			round.shaftRB.velocity = round.roundHeadRB.velocity;
-			round.shaftRB.angularVelocity = round.roundHeadRB.angularVelocity;
+			bullet.shaftRB.velocity = bullet.bulletHeadRB.velocity;
+			bullet.shaftRB.angularVelocity = bullet.bulletHeadRB.angularVelocity;
 
 			nocked = false;
             nockedWithType = GrabTypes.None;
 
-			currentRound.GetComponent<Round>().ArrowReleased( rifle.GetRoundVelocity() );
-			rifle.RoundReleased();
+			currentBullet.GetComponent<Bullet>().ArrowReleased( rifle.GetBulletVelocity() );
+			rifle.BulletReleased();
 
-			allowRoundSpawn = false;
-			Invoke( "EnableRoundSpawn", 0.5f );
+			allowBulletSpawn = false;
+			Invoke( "EnableBulletSpawn", 0.5f );
 			StartCoroutine( ArrowReleaseHaptics() );
 
-			currentRound = null;
+			currentBullet = null;
 			allowTeleport.teleportAllowed = true;
 		}
 
@@ -262,7 +262,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void EnableArrowSpawn()
 		{
-			allowRoundSpawn = true;
+			allowBulletSpawn = true;
 		}
 
 

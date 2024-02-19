@@ -479,15 +479,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7050214641404146466}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1597758769540724998}
   - {fileID: 8603321882838402335}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3111097076673556334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57468e6cbae21894fa42c90413c294ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPackage: {fileID: 11450054, guid: 98a3ad29136d5c04f8a025adf1cbd704, type: 3}
+  itemPackage: {fileID: 11450054, guid: 0d0d3d8ca2462934bac01f0bc70175f5, type: 3}
 --- !u!114 &4412404551548900661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,13 +673,13 @@ MonoBehaviour:
   handleTransform: {fileID: 0}
   nockTransform: {fileID: 0}
   nockRestTransform: {fileID: 0}
-  autoSpawnArrowHand: 1
-  arrowHandItemPackage: {fileID: 0}
-  arrowHandPrefab: {fileID: 0}
+  autoSpawnTriggerHand: 1
+  triggerHandItemPackage: {fileID: 0}
+  triggerHandPrefab: {fileID: 0}
   nocked: 0
   pulled: 0
-  arrowMinVelocity: 3
-  arrowMaxVelocity: 30
+  roundMinVelocity: 3
+  roundMaxVelocity: 30
   drawOffset: 0.06
   bowDrawLinearMapping: {fileID: 0}
   drawSound: {fileID: 0}

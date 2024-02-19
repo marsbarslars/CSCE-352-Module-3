@@ -42,13 +42,13 @@ namespace Valve.VR.InteractionSystem
 		private float nockDistanceTravelled = 0f;
 		private float hapticDistanceThreshold = 0.01f;
 		private float lastTickDistance;
-		private const float bowPullPulseStrengthLow = 100;
-		private const float bowPullPulseStrengthHigh = 500;
-		private Vector3 bowLeftVector;
+		private const float riflePullPulseStrengthLow = 100;
+		private const float riflePullPulseStrengthHigh = 500;
+		private Vector3 rifleLeftVector;
 
-		public float roundMinVelocity = 3f;
-		public float roundMaxVelocity = 30f;
-		private float roundVelocity = 30f;
+		public float bulletMinVelocity = 3f;
+		public float bulletMaxVelocity = 30f;
+		private float bulletVelocity = 30f;
 
 		private float minStrainTickTime = 0.1f;
 		private float maxStrainTickTime = 0.5f;
@@ -98,7 +98,7 @@ namespace Valve.VR.InteractionSystem
 
 			if ( nocked )
 			{
-				Vector3 nockTotriggerHand = ( triggerHand.roundNockTransform.parent.position - nockRestTransform.position ); // Vector from bow nock transform to arrowhand nock transform - used to align bow when drawing
+				Vector3 nockTotriggerHand = ( triggerHand.bulletNockTransform.parent.position - nockRestTransform.position ); // Vector from bow nock transform to arrowhand nock transform - used to align bow when drawing
 
 				// Align bow
 				// Time lerp value used for ramping into drawn bow orientation
@@ -106,14 +106,14 @@ namespace Valve.VR.InteractionSystem
 
 				float pullLerp = Util.RemapNumberClamped( nockTotriggerHand.magnitude, minPull, maxPull, 0f, 1f ); // Normalized current state of bow draw 0 - 1
 
-				Vector3 arrowNockTransformToHeadset = ( ( Player.instance.hmdTransform.position + ( Vector3.down * 0.05f ) ) - triggerHand.roundNockTransform.parent.position ).normalized;
-				Vector3 triggerHandPosition = ( triggerHand.roundNockTransform.parent.position + ( ( arrowNockTransformToHeadset * drawOffset ) * pullLerp ) ); // Use this line to lerp arrowHand nock position
+				Vector3 arrowNockTransformToHeadset = ( ( Player.instance.hmdTransform.position + ( Vector3.down * 0.05f ) ) - triggerHand.bulletNockTransform.parent.position ).normalized;
+				Vector3 triggerHandPosition = ( triggerHand.bulletNockTransform.parent.position + ( ( arrowNockTransformToHeadset * drawOffset ) * pullLerp ) ); // Use this line to lerp arrowHand nock position
 				//Vector3 arrowHandPosition = arrowHand.arrowNockTransform.position; // Use this line if we don't want to lerp arrowHand nock position
 
 				Vector3 pivotToString = ( triggerHandPosition - pivotTransform.position ).normalized;
 				Vector3 pivotToLowerHandle = ( handleTransform.position - pivotTransform.position ).normalized;
-				bowLeftVector = -Vector3.Cross( pivotToLowerHandle, pivotToString );
-				pivotTransform.rotation = Quaternion.Lerp( nockLerpStartRotation, Quaternion.LookRotation( pivotToString, bowLeftVector ), lerp );
+				rifleLeftVector = -Vector3.Cross( pivotToLowerHandle, pivotToString );
+				pivotTransform.rotation = Quaternion.Lerp( nockLerpStartRotation, Quaternion.LookRotation( pivotToString, rifleLeftVector ), lerp );
 
 				// Move nock position
 				if ( Vector3.Dot( nockTotriggerHand, -nockTransform.forward ) > 0 )
@@ -124,7 +124,7 @@ namespace Valve.VR.InteractionSystem
 
 					nockDistanceTravelled = -nockTransform.localPosition.z;
 
-					roundVelocity = Util.RemapNumber( nockDistanceTravelled, minPull, maxPull, roundMinVelocity, roundMaxVelocity );
+					bulletVelocity = Util.RemapNumber( nockDistanceTravelled, minPull, maxPull, bulletMinVelocity, bulletMaxVelocity );
 
 					drawTension = Util.RemapNumberClamped( nockDistanceTravelled, 0, maxPull, 0f, 1f );
 
@@ -141,7 +141,7 @@ namespace Valve.VR.InteractionSystem
 
 					if ( ( nockDistanceTravelled > ( lastTickDistance + hapticDistanceThreshold ) ) || nockDistanceTravelled < ( lastTickDistance - hapticDistanceThreshold ) )
 					{
-						ushort hapticStrength = (ushort)Util.RemapNumber( nockDistanceTravelled, 0, maxPull, bowPullPulseStrengthLow, bowPullPulseStrengthHigh );
+						ushort hapticStrength = (ushort)Util.RemapNumber( nockDistanceTravelled, 0, maxPull, riflePullPulseStrengthLow, riflePullPulseStrengthHigh );
 						hand.TriggerHapticPulse( hapticStrength );
 						hand.otherHand.TriggerHapticPulse( hapticStrength );
 
@@ -188,7 +188,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		public void RoundReleased()
+		public void BulletReleased()
 		{
 			nocked = false;
 			hand.HoverUnlock( GetComponent<Interactable>() );
@@ -223,9 +223,9 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		public float GetRoundVelocity()
+		public float GetBulletVelocity()
 		{
-			return roundVelocity;
+			return bulletVelocity;
 		}
 
 

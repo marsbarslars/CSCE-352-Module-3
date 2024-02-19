@@ -10,10 +10,10 @@ using System.Collections;
 namespace Valve.VR.InteractionSystem
 {
 	//-------------------------------------------------------------------------
-	public class Round : MonoBehaviour
+	public class Bullet : MonoBehaviour
 	{
 		public ParticleSystem glintParticle;
-		public Rigidbody roundHeadRB;
+		public Rigidbody bulletHeadRB;
 		public Rigidbody shaftRB;
 
 		public PhysicMaterial targetPhysMaterial;
@@ -71,7 +71,7 @@ namespace Valve.VR.InteractionSystem
 				prevPosition = transform.position;
 				prevRotation = transform.rotation;
 				prevVelocity = shaftRB.velocity;
-				prevHeadPosition = roundHeadRB.transform.position;
+				prevHeadPosition = bulletHeadRB.transform.position;
 				travelledFrames++;
 			}
 		}
@@ -91,7 +91,7 @@ namespace Valve.VR.InteractionSystem
 			shaftRB.collisionDetectionMode = initialCollisionDetection;
             shaftRB.useGravity = initialUseGravity;
 
-			roundHeadRB.GetComponent<FixedJoint>().connectedBody = rb;
+			bulletHeadRB.GetComponent<FixedJoint>().connectedBody = rb;
         }
 
 
@@ -117,7 +117,7 @@ namespace Valve.VR.InteractionSystem
 			RaycastHit[] hits = Physics.SphereCastAll( transform.position, 0.01f, transform.forward, 0.80f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore );
 			foreach ( RaycastHit hit in hits )
 			{
-				if ( hit.collider.gameObject != gameObject && hit.collider.gameObject != roundHeadRB.gameObject && hit.collider != Player.instance.headCollider )
+				if ( hit.collider.gameObject != gameObject && hit.collider.gameObject != bulletHeadRB.gameObject && hit.collider != Player.instance.headCollider )
 				{
 					Destroy( gameObject );
 					return;
@@ -127,7 +127,7 @@ namespace Valve.VR.InteractionSystem
 			travelledFrames = 0;
 			prevPosition = transform.position;
 			prevRotation = transform.rotation;
-			prevHeadPosition = roundHeadRB.transform.position;
+			prevHeadPosition = bulletHeadRB.transform.position;
 			prevVelocity = GetComponent<Rigidbody>().velocity;
 
             SetCollisionMode(CollisionDetectionMode.ContinuousDynamic);
@@ -162,8 +162,8 @@ namespace Valve.VR.InteractionSystem
 					transform.position = prevPosition - prevVelocity * Time.deltaTime;
 					transform.rotation = prevRotation;
 
-					Vector3 reflfectDir = Vector3.Reflect( roundHeadRB.velocity, collision.contacts[0].normal );
-					roundHeadRB.velocity = reflfectDir * 0.25f;
+					Vector3 reflfectDir = Vector3.Reflect( bulletHeadRB.velocity, collision.contacts[0].normal );
+					bulletHeadRB.velocity = reflfectDir * 0.25f;
 					shaftRB.velocity = reflfectDir * 0.25f;
 
 					travelledFrames = 0;
@@ -194,7 +194,7 @@ namespace Valve.VR.InteractionSystem
 				}
 				else
 				{
-					// Only count collisions with good speed so that arrows on the ground can't deal damage
+					// Only count collisions with good speed so that arrows on the gbullet can't deal damage
 					// always pop balloons
 					if ( rbSpeed > 0.1f || hitBalloon )
 					{
@@ -208,8 +208,8 @@ namespace Valve.VR.InteractionSystem
 					// Revert my physics properties cause I don't want balloons to influence my travel
 					transform.position = prevPosition;
 					transform.rotation = prevRotation;
-					roundHeadRB.velocity = prevVelocity;
-					Physics.IgnoreCollision( roundHeadRB.GetComponent<Collider>(), collision.collider );
+					bulletHeadRB.velocity = prevVelocity;
+					Physics.IgnoreCollision( bulletHeadRB.GetComponent<Collider>(), collision.collider );
 					Physics.IgnoreCollision( shaftRB.GetComponent<Collider>(), collision.collider );
 				}
 
@@ -267,11 +267,11 @@ namespace Valve.VR.InteractionSystem
 			shaftRB.useGravity = false;
 			shaftRB.transform.GetComponent<BoxCollider>().enabled = false;
 
-			roundHeadRB.velocity = Vector3.zero;
-			roundHeadRB.angularVelocity = Vector3.zero;
-			roundHeadRB.isKinematic = true;
-			roundHeadRB.useGravity = false;
-			roundHeadRB.transform.GetComponent<BoxCollider>().enabled = false;
+			bulletHeadRB.velocity = Vector3.zero;
+			bulletHeadRB.angularVelocity = Vector3.zero;
+			bulletHeadRB.isKinematic = true;
+			bulletHeadRB.useGravity = false;
+			bulletHeadRB.transform.GetComponent<BoxCollider>().enabled = false;
 
 			hitTargetSound.Play();
 
@@ -293,7 +293,7 @@ namespace Valve.VR.InteractionSystem
 
 			scaleParentObject.transform.parent = parentTransform;
 
-			// Move the arrow to the place on the target collider we were expecting to hit prior to the impact itself knocking it around
+			// Move the arrow to the place on the target collider we were expecting to hit prior to the impact itself knocking it abullet
 			transform.parent = scaleParentObject.transform;
 			transform.rotation = prevRotation;
 			transform.position = prevPosition;

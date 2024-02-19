@@ -228,7 +228,7 @@ namespace Valve.VR.InteractionSystem
 		{
 			currentArrow.transform.parent = null;
 
-			Round arrow = currentArrow.GetComponent<Round>();
+			Arrow arrow = currentArrow.GetComponent<Arrow>();
             arrow.StartRelease();
             arrow.shaftRB.isKinematic = false;
 			arrow.shaftRB.useGravity = true;
@@ -247,7 +247,7 @@ namespace Valve.VR.InteractionSystem
 			nocked = false;
             nockedWithType = GrabTypes.None;
 
-			currentArrow.GetComponent<Round>().ArrowReleased( bow.GetArrowVelocity() );
+			currentArrow.GetComponent<Arrow>().ArrowReleased( bow.GetArrowVelocity() );
 			bow.ArrowReleased();
 
 			allowArrowSpawn = false;

@@ -205,15 +205,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400276}
+  - component: {fileID: 11447524}
   - component: {fileID: 11426438}
   - component: {fileID: 11443248}
   - component: {fileID: 11405654}
   - component: {fileID: 114000011899610526}
   - component: {fileID: 114000012696964694}
   - component: {fileID: 114000012786783108}
-  - component: {fileID: 3753662954509608142}
   m_Layer: 0
-  m_Name: TriggerHand
+  m_Name: ArrowHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,6 +237,26 @@ Transform:
   - {fileID: 4000011047323824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11447524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85480da87762944399dab6c99985eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 3}
+  arrowNockTransform: {fileID: 413922}
+  nockDistance: 0.1
+  lerpCompleteDistance: 0.08
+  rotationLerpThreshold: 0.15
+  positionLerpThreshold: 0.15
+  arrowSpawnSound: {fileID: 11498220}
+  maxArrowCount: 10
 --- !u!114 &11426438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57468e6cbae21894fa42c90413c294ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPackage: {fileID: 11450054, guid: 0d0d3d8ca2462934bac01f0bc70175f5, type: 3}
+  itemPackage: {fileID: 11450054, guid: 98a3ad29136d5c04f8a025adf1cbd704, type: 3}
 --- !u!114 &11443248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d4cc6cf300b3e4bb1411c4e041030c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportAllowed: 1
+  teleportAllowed: 0
   overrideHoverLock: 1
 --- !u!114 &114000011899610526
 MonoBehaviour:
@@ -356,14 +376,12 @@ MonoBehaviour:
   blendEditorExpanded: 0
   poseNames:
   - longbowArrowPose (MAIN)
-  - '[not set]'
   overridePreviewLeftHandPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf,
     type: 3}
   overridePreviewRightHandPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25,
     type: 3}
   skeletonMainPose: {fileID: 11400000, guid: 12d7f50e857b2f44a87430b50a8a0c25, type: 2}
-  skeletonAdditionalPoses:
-  - {fileID: 0}
+  skeletonAdditionalPoses: []
   showLeftPreview: 0
   showRightPreview: 1
   previewLeftInstance: {fileID: 0}
@@ -371,27 +389,6 @@ MonoBehaviour:
   previewPoseSelection: 0
   blendingBehaviours: []
   scale: 1
---- !u!114 &3753662954509608142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d23e0a151936eb40be715bd8a7c2dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1556352359394094858, guid: bc2ff1a681a2b994e8396890eec95a20,
-    type: 3}
-  bulletNockTransform: {fileID: 0}
-  nockDistance: 0.1
-  lerpCompleteDistance: 0.08
-  rotationLerpThreshold: 0.15
-  positionLerpThreshold: 0.15
-  bulletSpawnSound: {fileID: 0}
-  maxBulletCount: 10
 --- !u!1 &191840
 GameObject:
   m_ObjectHideFlags: 0
