@@ -90,8 +90,8 @@ namespace Valve.VR.InteractionSystem
 		private void HandAttachedUpdate( Hand hand )
 		{
 			// Reset transform since we cheated it right after getting poses on previous frame
-			//transform.localPosition = Vector3.zero;
-			//transform.localRotation = Quaternion.identity;
+			// transform.localPosition = Vector3.zero;
+			// transform.localRotation = Quaternion.identity;
 
 			// Update handedness guess
 			EvaluateHandedness();
@@ -106,8 +106,8 @@ namespace Valve.VR.InteractionSystem
 
 				float pullLerp = Util.RemapNumberClamped( nockTotriggerHand.magnitude, minPull, maxPull, 0f, 1f ); // Normalized current state of bow draw 0 - 1
 
-				Vector3 arrowNockTransformToHeadset = ( ( Player.instance.hmdTransform.position + ( Vector3.down * 0.05f ) ) - triggerHand.bulletNockTransform.parent.position ).normalized;
-				Vector3 triggerHandPosition = ( triggerHand.bulletNockTransform.parent.position + ( ( arrowNockTransformToHeadset * drawOffset ) * pullLerp ) ); // Use this line to lerp arrowHand nock position
+				Vector3 bulletNockTransformToHeadset = ( ( Player.instance.hmdTransform.position + ( Vector3.down * 0.05f ) ) - triggerHand.bulletNockTransform.parent.position ).normalized;
+				Vector3 triggerHandPosition = ( triggerHand.bulletNockTransform.parent.position + ( ( bulletNockTransformToHeadset * drawOffset ) * pullLerp ) ); // Use this line to lerp arrowHand nock position
 				//Vector3 arrowHandPosition = arrowHand.arrowNockTransform.position; // Use this line if we don't want to lerp arrowHand nock position
 
 				Vector3 pivotToString = ( triggerHandPosition - pivotTransform.position ).normalized;

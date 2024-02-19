@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f83db71b9a6764abf964ab7679f035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Longbow
+  name: Rifle
   packageType: 2
   itemPrefab: {fileID: 7050214641404146466, guid: 38b3bcc40cb27d54c972afd39862084a,
     type: 3}
-  otherHandItemPrefab: {fileID: 187848, guid: d410d7126dd411c4ea651fc94eae9202, type: 3}
+  otherHandItemPrefab: {fileID: 187848, guid: 361d4cd28f54c5a4f9618828c4f3d082, type: 3}
   previewPrefab: {fileID: 7050214641404146466, guid: 6c887e2b9c707064f96b9f3a8f1d5a87,
     type: 3}
-  fadedPreviewPrefab: {fileID: 103010, guid: b9d299b8c6aa86242bec9a060f7e2d81, type: 3}
+  fadedPreviewPrefab: {fileID: 7050214641404146466, guid: 99470db3a4eaacf438a96b1eba003cdd,
+    type: 3}
