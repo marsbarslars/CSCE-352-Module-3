@@ -15,7 +15,7 @@ MonoBehaviour:
   leftHand:
     inputSource: 1
     thumbFingerMovementType: 0
-    indexFingerMovementType: 0
+    indexFingerMovementType: 1
     middleFingerMovementType: 0
     ringFingerMovementType: 1
     pinkyFingerMovementType: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   rightHand:
     inputSource: 2
     thumbFingerMovementType: 0
-    indexFingerMovementType: 0
+    indexFingerMovementType: 1
     middleFingerMovementType: 0
     ringFingerMovementType: 1
     pinkyFingerMovementType: 1
