@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3446687312918391475}
   - component: {fileID: 6992566534171263228}
   - component: {fileID: 8573915569693035414}
-  - component: {fileID: 3882015649097706549}
+  - component: {fileID: 8302262550425966262}
   m_Layer: 0
   m_Name: Targets Spawn
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3882015649097706549
+--- !u!114 &8302262550425966262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,14 +115,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7567064723987660944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b12834c326231f4caeb17f357503c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: cde52ae7f1159f942a53bcf87f441a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationaryTarget: {fileID: 7922508154668184693, guid: 6bf47ab311e59f242a84730bc917287d,
-    type: 3}
+  stationaryTarget: {fileID: 0}
   xPos: 0
   yPos: 0
   zPos: 0
-  timer: {fileID: 3654720278344635879, guid: 17d004a1f7a844d4a850f33f9344e1a0, type: 3}
-  timerGameObject: {fileID: 250336127800656843, guid: 17d004a1f7a844d4a850f33f9344e1a0,
-    type: 3}
+  timerGameObject: {fileID: 0}
