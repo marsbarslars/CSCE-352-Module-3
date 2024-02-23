@@ -1595,15 +1595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveFiles:
-  - {fileID: 8300000, guid: 5dea26c1298d78149af149b8bd73ff63, type: 3}
-  - {fileID: 8300000, guid: f9d368eac27f70740bed52d36e0070d8, type: 3}
-  - {fileID: 8300000, guid: c4212c0047b94924e8982fea80fb6547, type: 3}
-  - {fileID: 8300000, guid: 220813dc74ddc714fa8b1db1e6416e27, type: 3}
-  - {fileID: 8300000, guid: 0e4ff6f209abadf45b1c2403b1382cdf, type: 3}
-  - {fileID: 8300000, guid: 0e1c54b10ce72f640a29eecbfced2363, type: 3}
-  - {fileID: 8300000, guid: c2b473f54caf2504ba276643282bc0ab, type: 3}
-  - {fileID: 8300000, guid: 0858be1afe7ac384698e357be00d670f, type: 3}
-  - {fileID: 8300000, guid: 14d8c2eed68260f4d82a70201f2f19eb, type: 3}
   - {fileID: 8300000, guid: c251d6ceea6f68f4aa402be8296e4015, type: 3}
   volMin: 1
   volMax: 1
