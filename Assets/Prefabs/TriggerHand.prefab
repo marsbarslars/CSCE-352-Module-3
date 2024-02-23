@@ -360,7 +360,6 @@ MonoBehaviour:
   lerpCompleteDistance: 0.08
   rotationLerpThreshold: 0.15
   positionLerpThreshold: 0.15
-  bulletSpawnSound: {fileID: 0}
   maxBulletCount: 10
 --- !u!114 &-1355900077105268127
 MonoBehaviour:
@@ -1511,7 +1510,7 @@ Transform:
   m_GameObject: {fileID: 6777791326965982082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.003, y: 0.037, z: 0.084}
+  m_LocalPosition: {x: -0.003, y: 0.044, z: 0.573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
