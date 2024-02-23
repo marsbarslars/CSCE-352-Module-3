@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21e05b52d0100d4fac5c7549783f4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHeadRB: {fileID: 0}
+  bulletHeadRB: {fileID: 8647560762153632654}
   shaftRB: {fileID: 196435066228315089}
   targetPhysMaterial: {fileID: 13400000, guid: c509d5711dc2cc346be2763cd92383ca, type: 2}
 --- !u!65 &1153302361808900868

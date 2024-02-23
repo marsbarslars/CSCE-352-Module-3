@@ -235,6 +235,7 @@ Transform:
   - {fileID: 498172}
   - {fileID: 453242}
   - {fileID: 4608548198227582480}
+  - {fileID: 1410989858289340395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11426438
@@ -354,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1556352359394094858, guid: bc2ff1a681a2b994e8396890eec95a20,
     type: 3}
-  bulletNockTransform: {fileID: 0}
+  bulletNockTransform: {fileID: 1410989858289340395}
   nockDistance: 0.1
   lerpCompleteDistance: 0.08
   rotationLerpThreshold: 0.15
@@ -1485,6 +1486,37 @@ Transform:
   - {fileID: 2537458516062516565}
   m_Father: {fileID: 6580140507627591241}
   m_LocalEulerAnglesHint: {x: 2.025, y: -1.637, z: -72}
+--- !u!1 &6777791326965982082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1410989858289340395}
+  m_Layer: 0
+  m_Name: BulletNock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1410989858289340395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777791326965982082}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.003, y: 0.037, z: 0.084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 400276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7218298146943937964
 GameObject:
   m_ObjectHideFlags: 0

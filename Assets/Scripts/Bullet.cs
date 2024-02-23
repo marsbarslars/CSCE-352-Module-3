@@ -88,7 +88,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		public void ArrowReleased( float inputVelocity )
+		public void BulletReleased( float inputVelocity )
         {
             inFlight = true;
 			released = true;

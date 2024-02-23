@@ -2417,6 +2417,7 @@ Transform:
   - {fileID: 8603321882838402335}
   - {fileID: 222982883690606404}
   - {fileID: 4834397142954116352}
+  - {fileID: 2559660339369223192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3111097076673556334
@@ -2569,23 +2570,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHandGuess: 0
-  pivotTransform: {fileID: 0}
-  handleTransform: {fileID: 0}
-  nockTransform: {fileID: 0}
-  nockRestTransform: {fileID: 0}
+  pivotTransform: {fileID: 2559660339369223192}
+  handleTransform: {fileID: 6080712894835975624}
+  nockTransform: {fileID: 5713549793430311463}
+  nockRestTransform: {fileID: 2162826647045706369}
   autoSpawnTriggerHand: 1
   triggerHandItemPackage: {fileID: 0}
   triggerHandPrefab: {fileID: 187848, guid: 361d4cd28f54c5a4f9618828c4f3d082, type: 3}
   nocked: 0
   pulled: 0
-  bulletMinVelocity: 3
-  bulletMaxVelocity: 30
   drawOffset: 0.06
-  bowDrawLinearMapping: {fileID: 0}
-  drawSound: {fileID: 0}
-  arrowSlideSound: {fileID: 0}
+  rifleLinearMapping: {fileID: 0}
   releaseSound: {fileID: 0}
-  nockSound: {fileID: 0}
 --- !u!114 &6047447299036363628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,6 +3249,37 @@ MonoBehaviour:
   fallbackCurlAction:
     actionPath: /actions/default/in/Squeeze
     needsReinit: 0
+--- !u!1 &8774857194737606605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2559660339369223192}
+  m_Layer: 0
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2559660339369223192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8774857194737606605}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.029, y: 0.057, z: -0.058}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7682213458616953240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8818845785717091114
 GameObject:
   m_ObjectHideFlags: 0

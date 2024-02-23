@@ -1,7 +1,7 @@
 ﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: The object attached to the player's hand that spawns and fires the
-//			arrow
+//			bullet
 //
 //=============================================================================
 
@@ -33,8 +33,6 @@ namespace Valve.VR.InteractionSystem
 
 		private bool inNockRange = false;
 		private bool bulletLerpComplete = false;
-
-		public SoundPlayOneshot bulletSpawnSound;
 
 		private AllowTeleportWhileAttachedToHand allowTeleport = null;
 
@@ -96,12 +94,6 @@ namespace Valve.VR.InteractionSystem
 			if ( rifle == null )
 			{
 				return;
-			}
-
-			if ( allowBulletSpawn && ( currentBullet == null ) ) // If we're allowed to have an active bullet in hand but don't yet, spawn one
-			{
-				currentBullet = InstantiateBullet();
-				bulletSpawnSound.Play();
 			}
 
 			float distanceToNockPosition = Vector3.Distance( transform.parent.position, rifle.nockTransform.position );
@@ -172,8 +164,8 @@ namespace Valve.VR.InteractionSystem
 
                 GrabTypes bestGrab = hand.GetBestGrabbingType(GrabTypes.Pinch, true);
 
-                // If bullet is close enough to the nock position and we're pressing the trigger, and we're not nocked yet, Nock
-                if ( ( distanceToNockPosition < nockDistance ) && bestGrab != GrabTypes.None && !nocked )
+                // If bullet is close enough to the nock position, and we're not nocked yet, Nock
+                if ( ( distanceToNockPosition < nockDistance ) && !nocked )
 				{
 					if ( currentBullet == null )
 					{
@@ -181,7 +173,7 @@ namespace Valve.VR.InteractionSystem
 					}
 
 					nocked = true;
-                    nockedWithType = bestGrab;
+					nockedWithType = bestGrab;
 					rifle.StartNock( this );
 					hand.HoverLock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = false;
@@ -191,25 +183,24 @@ namespace Valve.VR.InteractionSystem
 				}
 			}
 
+            // If bullet is nocked, and we pull the trigger
+            if (nocked && hand.IsGrabbingWithType(nockedWithType) == true)
+            {
+                
+                    FireBullet();
 
-			// If bullet is nocked, and we release the trigger
-			if ( nocked && hand.IsGrabbingWithType(nockedWithType) == false )
+            }
+
+            // If bullet is nocked, and we release the trigger
+            if ( nocked && hand.IsGrabbingWithType(nockedWithType) == false )
 			{
-				if ( rifle.pulled ) // If rifle is pulled back far enough, fire bullet, otherwise reset bullet in triggerhand
-				{
-					FireBullet();
-				}
-				else
-				{
-					bulletNockTransform.rotation = currentBullet.transform.rotation;
-					currentBullet.transform.parent = bulletNockTransform;
-					Util.ResetTransform( currentBullet.transform );
+				
 					nocked = false;
                     nockedWithType = GrabTypes.None;
 					rifle.ReleaseNock();
 					hand.HoverUnlock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = true;
-				}
+				
 
 				rifle.StartRotationLerp(); // bullet is releasing from the rifle, tell the rifle to lerp back to controller rotation
 			}
@@ -247,7 +238,7 @@ namespace Valve.VR.InteractionSystem
 			nocked = false;
             nockedWithType = GrabTypes.None;
 
-			currentBullet.GetComponent<Bullet>().ArrowReleased( rifle.GetBulletVelocity() );
+			currentBullet.GetComponent<Bullet>().BulletReleased( rifle.GetBulletVelocity() );
 			rifle.BulletReleased();
 
 			allowBulletSpawn = false;
