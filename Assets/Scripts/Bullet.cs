@@ -1,6 +1,6 @@
 ﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
-// Purpose: The arrow for the longbow
+// Purpose: The bullet for the rifle
 //
 //=============================================================================
 
@@ -12,7 +12,6 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	public class Bullet : MonoBehaviour
 	{
-		public ParticleSystem glintParticle;
 		public Rigidbody bulletHeadRB;
 		public Rigidbody shaftRB;
 
@@ -23,15 +22,8 @@ namespace Valve.VR.InteractionSystem
 		private Vector3 prevVelocity;
 		private Vector3 prevHeadPosition;
 
-		public SoundPlayOneshot fireReleaseSound;
-		public SoundPlayOneshot airReleaseSound;
-		public SoundPlayOneshot hitTargetSound;
-
-		public PlaySound hitGroundSound;
-
 		private bool inFlight;
 		private bool released;
-		private bool hasSpreadFire = false;
 
 		private int travelledFrames = 0;
 
@@ -101,18 +93,6 @@ namespace Valve.VR.InteractionSystem
             inFlight = true;
 			released = true;
 
-			airReleaseSound.Play();
-
-			if ( glintParticle != null )
-			{
-				glintParticle.Play();
-			}
-
-			if ( gameObject.GetComponentInChildren<FireSource>().isBurning )
-			{
-				fireReleaseSound.Play();
-			}
-
 			// Check if arrow is shot inside or too close to an object
 			RaycastHit[] hits = Physics.SphereCastAll( transform.position, 0.01f, transform.forward, 0.80f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore );
 			foreach ( RaycastHit hit in hits )
@@ -170,39 +150,6 @@ namespace Valve.VR.InteractionSystem
 					return;
 				}
 
-				if ( glintParticle != null )
-				{
-					glintParticle.Stop( true );
-				}
-
-				// Only play hit sounds if we're moving quickly
-				if ( rbSpeed > 0.1f )
-				{
-					hitGroundSound.Play();
-				}
-
-				FireSource arrowFire = gameObject.GetComponentInChildren<FireSource>();
-				FireSource fireSourceOnTarget = collision.collider.GetComponentInParent<FireSource>();
-
-				if ( arrowFire != null && arrowFire.isBurning && ( fireSourceOnTarget != null ) )
-				{
-					if ( !hasSpreadFire )
-					{
-						collision.collider.gameObject.SendMessageUpwards( "FireExposure", gameObject, SendMessageOptions.DontRequireReceiver );
-						hasSpreadFire = true;
-					}
-				}
-				else
-				{
-					// Only count collisions with good speed so that arrows on the gbullet can't deal damage
-					// always pop balloons
-					if ( rbSpeed > 0.1f || hitBalloon )
-					{
-						collision.collider.gameObject.SendMessageUpwards( "ApplyDamage", SendMessageOptions.DontRequireReceiver );
-						gameObject.SendMessage( "HasAppliedDamage", SendMessageOptions.DontRequireReceiver );
-					}
-				}
-
 				if ( hitBalloon )
 				{
 					// Revert my physics properties cause I don't want balloons to influence my travel
@@ -255,8 +202,6 @@ namespace Valve.VR.InteractionSystem
 				}
 			}
 
-			Destroy( glintParticle );
-
 			inFlight = false;
 
             SetCollisionMode(CollisionDetectionMode.Discrete, true);
@@ -272,9 +217,6 @@ namespace Valve.VR.InteractionSystem
 			bulletHeadRB.isKinematic = true;
 			bulletHeadRB.useGravity = false;
 			bulletHeadRB.transform.GetComponent<BoxCollider>().enabled = false;
-
-			hitTargetSound.Play();
-
 
 			// If the hit item has a parent, dock an empty object to that
 			// this fixes an issue with scaling hierarchy. I suspect this is not sustainable for a large object / scaling hierarchy.

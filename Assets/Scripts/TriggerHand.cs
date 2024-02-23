@@ -98,7 +98,7 @@ namespace Valve.VR.InteractionSystem
 				return;
 			}
 
-			if ( allowBulletSpawn && ( currentBullet == null ) ) // If we're allowed to have an active arrow in hand but don't yet, spawn one
+			if ( allowBulletSpawn && ( currentBullet == null ) ) // If we're allowed to have an active bullet in hand but don't yet, spawn one
 			{
 				currentBullet = InstantiateBullet();
 				bulletSpawnSound.Play();
@@ -153,7 +153,7 @@ namespace Valve.VR.InteractionSystem
 					}
 				}
 
-				// Allow nocking the arrow when controller is close enough
+				// Allow nocking the bullet when controller is close enough
 				if ( distanceToNockPosition < nockDistance )
 				{
 					if ( !inNockRange )
@@ -192,10 +192,10 @@ namespace Valve.VR.InteractionSystem
 			}
 
 
-			// If arrow is nocked, and we release the trigger
+			// If bullet is nocked, and we release the trigger
 			if ( nocked && hand.IsGrabbingWithType(nockedWithType) == false )
 			{
-				if ( rifle.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
+				if ( rifle.pulled ) // If rifle is pulled back far enough, fire bullet, otherwise reset bullet in triggerhand
 				{
 					FireBullet();
 				}
@@ -211,7 +211,7 @@ namespace Valve.VR.InteractionSystem
 					allowTeleport.teleportAllowed = true;
 				}
 
-				rifle.StartRotationLerp(); // Arrow is releasing from the bow, tell the bow to lerp back to controller rotation
+				rifle.StartRotationLerp(); // bullet is releasing from the rifle, tell the rifle to lerp back to controller rotation
 			}
 		}
 

@@ -70,9 +70,7 @@ namespace Valve.VR.InteractionSystem
 		private Vector3 lateUpdatePos;
 		private Quaternion lateUpdateRot;
 
-		public SoundBowClick drawSound;
 		private float drawTension;
-		public SoundPlayOneshot arrowSlideSound;
 		public SoundPlayOneshot releaseSound;
 		public SoundPlayOneshot nockSound;
 
@@ -145,8 +143,6 @@ namespace Valve.VR.InteractionSystem
 						hand.TriggerHapticPulse( hapticStrength );
 						hand.otherHand.TriggerHapticPulse( hapticStrength );
 
-						drawSound.PlayBowTensionClicks( drawTension );
-
 						lastTickDistance = nockDistanceTravelled;
 					}
 
@@ -156,8 +152,6 @@ namespace Valve.VR.InteractionSystem
 						{
 							hand.TriggerHapticPulse( 400 );
 							hand.otherHand.TriggerHapticPulse( 400 );
-
-							drawSound.PlayBowTensionClicks( drawTension );
 
 							nextStrainTick = Time.time + Random.Range( minStrainTickTime, maxStrainTickTime );
 						}
@@ -257,7 +251,7 @@ namespace Valve.VR.InteractionSystem
 		{
             var handType = hand.handType;
 
-			if ( handType == SteamVR_Input_Sources.LeftHand )// Bow hand is further left than arrow hand.
+			if ( handType == SteamVR_Input_Sources.LeftHand )// Rifle hand is further left than trigger hand.
 			{
 				// We were considering a switch, but the current controller orientation matches our currently assigned handedness, so no longer consider a switch
 				if ( possibleHandSwitch && currentHandGuess == Handedness.Left )
@@ -265,7 +259,7 @@ namespace Valve.VR.InteractionSystem
 					possibleHandSwitch = false;
 				}
 
-				// If we previously thought the bow was right-handed, and were not already considering switching, start considering a switch
+				// If we previously thought the rifle was right-handed, and were not already considering switching, start considering a switch
 				if ( !possibleHandSwitch && currentHandGuess == Handedness.Right )
 				{
 					possibleHandSwitch = true;
@@ -279,7 +273,7 @@ namespace Valve.VR.InteractionSystem
 					possibleHandSwitch = false;
 				}
 			}
-			else // Bow hand is further right than arrow hand
+			else // Rifle hand is further right than trigger hand
 			{
 				// We were considering a switch, but the current controller orientation matches our currently assigned handedness, so no longer consider a switch
 				if ( possibleHandSwitch && currentHandGuess == Handedness.Right )
@@ -287,7 +281,7 @@ namespace Valve.VR.InteractionSystem
 					possibleHandSwitch = false;
 				}
 
-				// If we previously thought the bow was right-handed, and were not already considering switching, start considering a switch
+				// If we previously thought the rifle was right-handed, and were not already considering switching, start considering a switch
 				if ( !possibleHandSwitch && currentHandGuess == Handedness.Left )
 				{
 					possibleHandSwitch = true;
@@ -307,7 +301,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void DoHandednessCheck()
 		{
-			// Based on our current best guess about hand, switch bow orientation and arrow lerp direction
+			// Based on our current best guess about hand, switch rifle orientation and arrow lerp direction
 			if ( currentHandGuess == Handedness.Left )
 			{
 				pivotTransform.localScale = new Vector3( 1f, 1f, 1f );
@@ -334,7 +328,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		public void ReleaseNock()
 		{
-			// ArrowHand tells us to do this when we release the buttons when bow is nocked but not drawn far enough
+			// TriggerHand tells us to do this when we release the buttons when rifle is nocked but not drawn far enough
 			nocked = false;
 			hand.HoverUnlock( GetComponent<Interactable>() );
 			this.StartCoroutine( this.ResetDrawAnim() );
