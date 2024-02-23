@@ -12,15 +12,24 @@ public class SpawnTargets : MonoBehaviour
     public int zPos;
     Timer timer;
     public GameObject timerGameObject;
+    public int t = 0;
 
     void Awake()
     {
         timer = timerGameObject.transform.GetComponent<Timer>();
     }
-    // Start is called before the first frame update
-    void Start()
+
+    void FixedUpdate()
     {
-        StartCoroutine(TargetDrop());
+        if (timer.timeIsRunning && (Time.timeSinceLevelLoad * 10) % 10 == 0)
+        {
+            // StartCoroutine(TargetDrop());
+            xPos = Random.Range(10, 0);
+            yPos = Random.Range(6, 12);
+            zPos = Random.Range(10, 20);
+            Instantiate(stationaryTarget, new Vector3(xPos, yPos, zPos), Quaternion.identity);
+
+        }
     }
 
     IEnumerator TargetDrop()

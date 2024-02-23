@@ -17,7 +17,9 @@ public class TargetShot : MonoBehaviour
         if (collision != null)
         {
             Destroy(gameObject);
-            _score.AddScore(_score.score);
+            _score.score += 1;
+            _score.DisplayScore(_score.score);
+            Debug.Log(_score);
         }
     }
 }

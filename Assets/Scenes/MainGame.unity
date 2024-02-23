@@ -1029,10 +1029,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95185b33f15836e4e96e4ccf421835c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 3
+  timeRemaining: 180
   timeIsRunning: 0
   timeText: {fileID: 611326684}
-  MovingPart: {fileID: 0}
+  MovingPart: {fileID: 1226769424}
+  buttonPressed: {fileID: 1226769424}
 --- !u!1 &622251399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,7 +1213,7 @@ PrefabInstance:
     - target: {fileID: 3574525886248601723, guid: e098326de2c28844e89bd3053504db96,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6102796
+      value: -15.48
       objectReference: {fileID: 0}
     - target: {fileID: 3574525886248601723, guid: e098326de2c28844e89bd3053504db96,
         type: 3}
@@ -1410,6 +1411,12 @@ Transform:
   - {fileID: 1573885905}
   m_Father: {fileID: 1344493317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1226769424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000014042078020, guid: 88075a54c7fb1484ba25db394b612917,
+    type: 3}
+  m_PrefabInstance: {fileID: 1749981058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1228066382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,7 +2117,8 @@ MonoBehaviour:
   score: 0
   timerGameObject: {fileID: 611326683}
   scoreText: {fileID: 1525925102}
-  MovingPart: {fileID: 0}
+  MovingPart: {fileID: 1226769424}
+  buttonPressed: {fileID: 0}
 --- !u!1 &1553913656
 GameObject:
   m_ObjectHideFlags: 0

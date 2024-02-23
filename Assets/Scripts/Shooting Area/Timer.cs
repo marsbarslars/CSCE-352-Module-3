@@ -8,11 +8,12 @@ using Valve.VR.InteractionSystem;
 public class Timer : MonoBehaviour
 {
 
-    public float timeRemaining = 3;
+    public float timeRemaining = 180;
     public bool timeIsRunning;
     public TMP_Text timeText;
     HoverButton button;
     public GameObject MovingPart;
+    public GameObject buttonPressed;
 
     void Awake()
     {
@@ -20,11 +21,7 @@ public class Timer : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        // Starts the timer
-        timeIsRunning = true; //TODO: Delete this line
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -32,7 +29,7 @@ public class Timer : MonoBehaviour
     
         if (button.buttonDown)
         {
-        timeIsRunning = true;
+            timeIsRunning = true;
         }
         if (timeIsRunning)
         {

@@ -13,6 +13,7 @@ public class Score : MonoBehaviour
     public TMP_Text scoreText;
     HoverButton button;
     public GameObject MovingPart;
+    public GameObject buttonPressed;
 
     // Awake activates anything before the sene loads
     void Awake()
@@ -35,8 +36,8 @@ public class Score : MonoBehaviour
         DisplayScore(score);
     }
 
-    void DisplayScore(float scoreToDisplay)
+    public void DisplayScore(int scoreToDisplay)
     {
-        scoreText.text = string.Format("{00}", scoreToDisplay);
+        scoreText.text = "Score:" + scoreToDisplay;
     }
 }
