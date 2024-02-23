@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.ShaderKeywordFilter;
+using Valve.VR.InteractionSystem;
 
 public class Score : MonoBehaviour
 {
@@ -10,24 +11,24 @@ public class Score : MonoBehaviour
     Timer timer;
     public GameObject timerGameObject;
     public TMP_Text scoreText;
+    HoverButton button;
+    public GameObject MovingPart;
 
     // Awake activates anything before the sene loads
     void Awake()
     {
         timer = timerGameObject.transform.GetComponent<Timer>();
+        button = MovingPart.transform.GetComponent<HoverButton>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // TODO: if button pushed then reset timer
-        //if () 
-        //{
-        //score = 0;
-        //}
-
+        if (button.buttonDown)
+        {
+            score = 0;
+        }
     }
-
     public void AddScore(int score)
     {
         score += 1;

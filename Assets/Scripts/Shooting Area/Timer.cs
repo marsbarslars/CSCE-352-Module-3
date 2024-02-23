@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public class Timer : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class Timer : MonoBehaviour
     public float timeRemaining = 3;
     public bool timeIsRunning;
     public TMP_Text timeText;
+    HoverButton button;
+    public GameObject MovingPart;
+
+    void Awake()
+    {
+        button = MovingPart.transform.GetComponent<HoverButton>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +29,11 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO:  if button pushed then start timer and target game
-        //if ()
-        //{
-        //timeIsRunning = true;
-        //}
+    
+        if (button.buttonDown)
+        {
+        timeIsRunning = true;
+        }
         if (timeIsRunning)
         {
             if (timeRemaining >= 0)
