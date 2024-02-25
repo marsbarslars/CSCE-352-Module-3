@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
@@ -13,6 +14,7 @@ public class SpawnTargets : MonoBehaviour
     Timer timer;
     public GameObject timerGameObject;
     public int t = 0;
+    private List<GameObject> targetList = new List<GameObject>();
 
     void Awake()
     {
@@ -23,27 +25,23 @@ public class SpawnTargets : MonoBehaviour
     {
         if (timer.timeIsRunning && (Time.timeSinceLevelLoad * 10) % 10 == 0)
         {
-            // StartCoroutine(TargetDrop());
-            xPos = Random.Range(10, 0);
+            xPos = Random.Range(-29, 29);
             yPos = Random.Range(6, 12);
-            zPos = Random.Range(10, 20);
-            Instantiate(stationaryTarget, new Vector3(xPos, yPos, zPos), Quaternion.identity);
-
+            zPos = Random.Range(-29, 29);
+            GameObject newTarget = Instantiate(stationaryTarget, new Vector3(xPos, yPos, zPos), Quaternion.identity);
+            targetList.Add(newTarget);
         }
-    }
 
-    IEnumerator TargetDrop()
-    {
-        while (timer.timeRemaining > 0)
+        if (timer.timeRemaining <= 0)
         {
-            xPos = Random.Range(10, 0);
-            yPos = Random.Range(6, 12);
-            zPos = Random.Range(10, 20);
-            Instantiate(stationaryTarget, new Vector3(xPos, yPos, zPos), Quaternion.identity);
-
-
-            yield return new WaitForSeconds(1f);
+            for (var i = 0; i < targetList.Count; i++)
+            {
+                Destroy(targetList[i]);
+            }
         }
     }
+
+
+
 
 }

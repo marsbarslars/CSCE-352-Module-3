@@ -30,6 +30,7 @@ namespace Valve.VR.InteractionSystem
 		private bool allowBulletSpawn = true;
 		private bool nocked;
         private GrabTypes nockedWithType = GrabTypes.None;
+		private bool firedBullet = false;
 
 		private bool inNockRange = false;
 		private bool bulletLerpComplete = false;
@@ -65,7 +66,7 @@ namespace Valve.VR.InteractionSystem
 			GameObject bullet = Instantiate( bulletPrefab, bulletNockTransform.position, bulletNockTransform.rotation ) as GameObject;
 			bullet.name = "Rifle Bullet";
 			bullet.transform.parent = bulletNockTransform;
-			Util.ResetTransform( bullet.transform );
+//			Util.ResetTransform( bullet.transform );
 
 			bulletList.Add( bullet );
 
@@ -177,17 +178,18 @@ namespace Valve.VR.InteractionSystem
 					rifle.StartNock( this );
 					hand.HoverLock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = false;
-					currentBullet.transform.parent = rifle.nockTransform;
-					Util.ResetTransform( currentBullet.transform );
-					Util.ResetTransform( bulletNockTransform );
+					currentBullet.transform.parent = rifle.bulletNockTransform;
+//					Util.ResetTransform( currentBullet.transform );
+//					Util.ResetTransform( bulletNockTransform );
 				}
 			}
 
             // If bullet is nocked, and we pull the trigger
-            if (nocked && hand.IsGrabbingWithType(nockedWithType) == true)
+            if (nocked && (hand.IsGrabbingWithType(nockedWithType) == true) && !firedBullet)
             {
                 
-                    FireBullet();
+                FireBullet();
+				firedBullet = true;
 
             }
 
@@ -195,11 +197,12 @@ namespace Valve.VR.InteractionSystem
             if ( nocked && hand.IsGrabbingWithType(nockedWithType) == false )
 			{
 				
-					nocked = false;
-                    nockedWithType = GrabTypes.None;
-					rifle.ReleaseNock();
-					hand.HoverUnlock( GetComponent<Interactable>() );
-					allowTeleport.teleportAllowed = true;
+				nocked = false;
+                nockedWithType = GrabTypes.None;
+				rifle.ReleaseNock();
+				hand.HoverUnlock( GetComponent<Interactable>() );
+				allowTeleport.teleportAllowed = true;
+				firedBullet = false;
 				
 
 				rifle.StartRotationLerp(); // bullet is releasing from the rifle, tell the rifle to lerp back to controller rotation

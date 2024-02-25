@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 982044046797841478}
   - component: {fileID: 653038562472847792}
   - component: {fileID: 6820629904267915076}
-  - component: {fileID: 3383016090170722023}
+  - component: {fileID: 5450871612589545926}
   m_Layer: 0
   m_Name: Stationery Target
   m_TagString: Untagged
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3383016090170722023
+--- !u!114 &5450871612589545926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,5 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69224b6ae8a138f41b4a0717834b1f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreGameObject: {fileID: 2683514604516086247, guid: e9ca610452999ce4e90a3a8f1404f382,
-    type: 3}
+  scoreGameObject: {fileID: 0}

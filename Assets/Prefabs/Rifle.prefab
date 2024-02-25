@@ -2045,6 +2045,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2162826647045706369}
+  - {fileID: 3402123697796147743}
   m_Father: {fileID: 1597758769540724998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5623489552107514440
@@ -2108,6 +2109,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5497176529424091252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5880185075909305074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3402123697796147743}
+  m_Layer: 0
+  m_Name: NockTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3402123697796147743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880185075909305074}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5713549793430311463}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5976072236752868355
 GameObject:
@@ -2669,7 +2701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57468e6cbae21894fa42c90413c294ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPackage: {fileID: 11450054, guid: 0d0d3d8ca2462934bac01f0bc70175f5, type: 3}
+  itemPackage: {fileID: 11450054, guid: b85c390453badbf4dae3ff0a263a26da, type: 3}
 --- !u!114 &4412404551548900661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2707,7 +2739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linearMapping: {fileID: 0}
-  animator: {fileID: 9545886, guid: b8c19e1576a53cf4cb1316a5123561a1, type: 3}
+  animator: {fileID: 0}
 --- !u!95 &-8647923336175895347
 Animator:
   serializedVersion: 5
@@ -2757,8 +2789,9 @@ MonoBehaviour:
   currentHandGuess: 0
   pivotTransform: {fileID: 2559660339369223192}
   handleTransform: {fileID: 6080712894835975624}
-  nockTransform: {fileID: 5713549793430311463}
+  nockTransform: {fileID: 3402123697796147743}
   nockRestTransform: {fileID: 2162826647045706369}
+  bulletNockTransform: {fileID: 2162819530156962875}
   autoSpawnTriggerHand: 1
   triggerHandItemPackage: {fileID: 0}
   triggerHandPrefab: {fileID: 187848, guid: 361d4cd28f54c5a4f9618828c4f3d082, type: 3}

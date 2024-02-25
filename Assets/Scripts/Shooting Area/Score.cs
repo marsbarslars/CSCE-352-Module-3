@@ -30,14 +30,14 @@ public class Score : MonoBehaviour
             score = 0;
         }
     }
-    public void AddScore(int score)
-    {
-        score += 1;
-        DisplayScore(score);
-    }
+//    public void AddScore(int score)
+//    {
+//        score += 1;
+//        DisplayScore(score);
+//    }
 
     public void DisplayScore(int scoreToDisplay)
     {
-        scoreText.text = "Score:" + scoreToDisplay;
+        scoreText.text = "Score: " + scoreToDisplay;
     }
 }

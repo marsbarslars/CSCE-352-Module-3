@@ -19,7 +19,6 @@ public class TargetShot : MonoBehaviour
             Destroy(gameObject);
             _score.score += 1;
             _score.DisplayScore(_score.score);
-            Debug.Log(_score);
         }
     }
 }

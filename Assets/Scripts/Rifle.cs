@@ -29,6 +29,7 @@ namespace Valve.VR.InteractionSystem
 
 		public Transform nockTransform;
 		public Transform nockRestTransform;
+		public Transform bulletNockTransform;
 
 		public bool autoSpawnTriggerHand = true;
 		public ItemPackage triggerHandItemPackage;
@@ -91,7 +92,6 @@ namespace Valve.VR.InteractionSystem
 
 			if ( nocked )
 			{
-				Vector3 nockTotriggerHand = ( triggerHand.bulletNockTransform.parent.position - nockRestTransform.position ); // Vector from bow nock transform to arrowhand nock transform - used to align bow when drawing
 
 				// Align bow
 				// Time lerp value used for ramping into drawn bow orientation
