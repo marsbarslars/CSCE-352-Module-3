@@ -179,8 +179,8 @@ namespace Valve.VR.InteractionSystem
 					hand.HoverLock( GetComponent<Interactable>() );
 					allowTeleport.teleportAllowed = false;
 					currentBullet.transform.parent = rifle.bulletNockTransform;
-//					Util.ResetTransform( currentBullet.transform );
-//					Util.ResetTransform( bulletNockTransform );
+					Util.ResetTransform( currentBullet.transform );
+					Util.ResetTransform( bulletNockTransform );
 				}
 			}
 
